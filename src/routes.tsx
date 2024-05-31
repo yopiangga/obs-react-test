@@ -8,6 +8,7 @@ import {
   ProfilePage,
   UsersPage,
   UserEditPage,
+  UserAddPage,
 } from "src/pages/dashboard";
 
 const icon = {
@@ -46,8 +47,15 @@ export const routes: Route[] = [
       {
         icon: <TableCellsIcon {...icon} />,
         name: "user",
-        path: "/users/:id",
+        path: "/users/edit/:id",
         element: <UserEditPage />,
+        type: "private",
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "user",
+        path: "/users/add",
+        element: <UserAddPage />,
         type: "private",
       },
       {

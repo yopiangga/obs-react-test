@@ -4,14 +4,16 @@ import React from "react";
 
 interface UserContextType {
   users: User[];
-  addUser: (user: User[]) => void;
+  initUsers: (users: User[]) => void;
+  addUser: (user: User) => void;
   editUser: (id: string, updatedUser: User) => void;
   deleteUser: (id: string) => void;
 }
 
 export const UserContext = createContext<UserContextType>({
   users: [] as User[],
-  addUser: (user: User[]) => {},
+  initUsers: (users: User[]) => {},
+  addUser: (user: User) => {},
   editUser: (id: string, updatedUser: User) => {},
   deleteUser: (id: string) => {},
 });
@@ -25,8 +27,12 @@ export const UserProvider: React.FC<Props> = ({
 }): React.ReactElement => {
   const [users, setUsers] = useState<User[]>([]);
 
-  const addUser = (user: User[]) => {
-    setUsers([...user]);
+  const initUsers = (users: User[]) => {
+    setUsers([...users]);
+  };
+
+  const addUser = (user: User) => {
+    setUsers([...users, user]);
   };
 
   const editUser = (id: string, updatedUser: User) => {
@@ -38,7 +44,9 @@ export const UserProvider: React.FC<Props> = ({
   };
 
   return (
-    <UserContext.Provider value={{ users, addUser, editUser, deleteUser }}>
+    <UserContext.Provider
+      value={{ users, initUsers, addUser, editUser, deleteUser }}
+    >
       {children}
     </UserContext.Provider>
   );

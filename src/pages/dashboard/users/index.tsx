@@ -19,7 +19,7 @@ import { DeleteActionComponent, DetailActionComponent } from "./component";
 export function UsersPage() {
   const navigate = useNavigate();
   const userServices = new UserServices();
-  const { users, addUser, deleteUser } = useContext(UserContext);
+  const { users, initUsers, deleteUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState<User>();
@@ -37,7 +37,7 @@ export function UsersPage() {
       ...user,
       avatar: `https://picsum.photos/50?random=${user.id}`,
     }));
-    addUser(userWithImages);
+    initUsers(userWithImages);
 
     setIsLoading(false);
   };
@@ -50,10 +50,23 @@ export function UsersPage() {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12 min-h-[calc(100vh-200px)]">
       <Card>
-        <CardHeader variant="gradient" color="gray" className="mb-8 p-6">
+        <CardHeader
+          variant="gradient"
+          color="gray"
+          className="mb-8 p-6 flex items-center justify-between"
+        >
           <Typography variant="h6" color="white">
             Users Table
           </Typography>
+          <Button
+            size="sm"
+            color="white"
+            onClick={() => {
+              navigate("/dashboard/users/add");
+            }}
+          >
+            Add User
+          </Button>
         </CardHeader>
 
         <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -157,7 +170,7 @@ export function UsersPage() {
           user={user}
           callback={(user: User) => {
             setDetailModal(false);
-            navigate(`/dashboard/users/${user.id}`);
+            navigate(`/dashboard/users/edit/${user.id}`);
           }}
           cancel={() => setDetailModal(false)}
         />
