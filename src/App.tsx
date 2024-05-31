@@ -1,25 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { DashboardLayout } from "src/layouts";
+import { BrowserRouter } from "react-router-dom";
+import { AppContextProvider } from "./context/AppContextProvider";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/dashboard/*" element={<DashboardLayout />} />
+          <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AppContextProvider>
   );
 }
 
