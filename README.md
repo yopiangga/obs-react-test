@@ -2,6 +2,9 @@
 
 Application with function create, read, update, delete and implement get data from example API
 
+- Deploy Vercel https://obs-react-test.vercel.app
+- Deploy VPS https://obs-react-test.alfian-py.site
+
 ## Feature
 
 - Home Page (show length data user)
